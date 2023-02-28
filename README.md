@@ -18,7 +18,7 @@ This tutorial uses the example ASP .NET Core solution that comes with the EdiNat
 Rebuild the solution. If there are any build errors, contact us at https://support.edifabric.com/hc/en-us/requests/new for assistance.
 
 ## 5. Getting started
-To get started, follow the steps in the [How to use InHouse EDI API as ASP .NET Core application](https://support.edifabric.com/hc/en-us/articles/7726202434449-How-to-use-Inhouse-EDI-API-as-Azure-Function) article.  
+To get started, follow the steps in the [How to use InHouse EDI API as an ASP .NET Core application](https://support.edifabric.com/hc/en-us/articles/9586899018013-How-to-use-EDI-API-as-ASP-NET-Core) article.  
 
 ## 6. Warranty
 *The source code in these example projects is strictly for demonstrational purposes and is provided "AS IS" without warranty of any kind, whether expressed or implied, including but not limited to the implied warranties of merchantability and/or fitness for a particular purpose.*
@@ -28,6 +28,8 @@ To get started, follow the steps in the [How to use InHouse EDI API as ASP .NET 
 [What is Inhouse EDI API](https://support.edifabric.com/hc/en-us/articles/7745692421521-What-is-Inhouse-EDI-API-)
 
 [How to use EDI API as AWS Lambda](https://support.edifabric.com/hc/en-us/articles/7726206553361-How-to-use-EDI-API-as-AWS-Lambda)
+
+[How to use EDI API as Azure Function](https://support.edifabric.com/hc/en-us/articles/7726202434449-How-to-use-Inhouse-EDI-API-as-Azure-Function)
 
 [Support](https://support.edifabric.com/hc/en-us/requests/new)
 
