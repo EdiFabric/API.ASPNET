@@ -2,7 +2,7 @@
 
 ## 1. Overview
 EdiNation InHouse EDI API allows you to run EdiNation's EDI translation and validation API in your own cloud or on-prem environment(s).  
-This tutorial uses the example ASP .NET Core solution that comes with the EdiNation Inhouse product, to demonstrate how to use EdiNation Inhouse API as an ASP .NET Core application.  
+This tutorial uses the example ASP .NET Core solution that comes with the EdiNation Inhouse product.  
 
 ## 2. Requirements
 - [EdiNation Inhouse subscription](https://buy.stripe.com/bIY9BK615epH2rufZ4) - this contains the in-house EDI API installation files EdiFabric.dll and EdiFabric.Api.dll, and an example Visual Studion 2022 solution that implements an Azure Function.
