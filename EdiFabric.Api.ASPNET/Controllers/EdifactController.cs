@@ -67,6 +67,7 @@ namespace EdiFabric.Api.ASPNET.Controllers
                 var result = new MemoryStream();
                 var parameters = writeParameters.ToWriteParams();
                 await _edifactService.WriteAsync(Request.Body, result, apiKeys.First(), parameters);
+                result.Position = 0;
                 return File(result, parameters.ContentType);
             }
             catch (Exception ex)
