@@ -9,13 +9,15 @@ namespace EdiFabric.Api.ASPNET.Controllers
     {
         private readonly IEdifactService _edifactService;
         private readonly ILogger _logger;
-        private readonly string _apiKey = "Ocp-Apim-Subscription-Key";
-        private readonly string _noApiKey = "No Ocp-Apim-Subscription-Key in header.";
+        private readonly string _apiKey;
         private readonly string _noData = "No data in request body.";
-        public EdifactController(IEdifactService edifactService, ILogger<EdifactController> logger)
+        public EdifactController(IEdifactService edifactService, ILogger<EdifactController> logger, IConfiguration configuration)
         {
             _edifactService = edifactService;
             _logger = logger;
+            _apiKey = configuration["ApiKey"];
+            if (string.IsNullOrEmpty(_apiKey))
+                throw new Exception("No ApiKey configuration in appsettings.json.");
         }
 
         [Route("read")]
@@ -29,15 +31,10 @@ namespace EdiFabric.Api.ASPNET.Controllers
                 return ErrorHandler.ToResponse(_noData);
             }
 
-            if (!Request.Headers.TryGetValue(_apiKey, out var apiKeys) || apiKeys.FirstOrDefault() == null)
-            {
-                _logger.LogError(_noApiKey);
-                return ErrorHandler.ToResponse(_noApiKey);
-            }
-
             try
             {
-                return Content(await _edifactService.ReadAsync(Request.Body, apiKeys.First(), readParameters.ToReadParams()), "application/json");
+                TokenFileCache.Set(_apiKey);
+                return Content(await _edifactService.ReadAsync(Request.Body, _apiKey, readParameters.ToReadParams()), "application/json");
             }
             catch (Exception ex)
             {
@@ -56,17 +53,12 @@ namespace EdiFabric.Api.ASPNET.Controllers
                 return ErrorHandler.ToResponse(_noData);
             }
 
-            if (!Request.Headers.TryGetValue(_apiKey, out var apiKeys) || apiKeys.FirstOrDefault() == null)
-            {
-                _logger.LogError(_noApiKey);
-                return ErrorHandler.ToResponse(_noApiKey);
-            }
-
             try
             {
+                TokenFileCache.Set(_apiKey);
                 var result = new MemoryStream();
                 var parameters = writeParameters.ToWriteParams();
-                await _edifactService.WriteAsync(Request.Body, result, apiKeys.First(), parameters);
+                await _edifactService.WriteAsync(Request.Body, result, _apiKey, parameters);
                 result.Position = 0;
                 return File(result, parameters.ContentType);
             }
@@ -86,16 +78,11 @@ namespace EdiFabric.Api.ASPNET.Controllers
                 _logger.LogError(_noData);
                 return ErrorHandler.ToResponse(_noData);
             }
-
-            if (!Request.Headers.TryGetValue(_apiKey, out var apiKeys) || apiKeys.FirstOrDefault() == null)
-            {
-                _logger.LogError(_noApiKey);
-                return ErrorHandler.ToResponse(_noApiKey);
-            }
-
+           
             try
             {
-                return Content(await _edifactService.ValidateAsync(Request.Body, apiKeys.First(), validateParameters.ToValidateParams()), "application/json");
+                TokenFileCache.Set(_apiKey);
+                return Content(await _edifactService.ValidateAsync(Request.Body, _apiKey, validateParameters.ToValidateParams()), "application/json");
             }
             catch (Exception ex)
             {
@@ -114,15 +101,10 @@ namespace EdiFabric.Api.ASPNET.Controllers
                 return ErrorHandler.ToResponse(_noData);
             }
 
-            if (!Request.Headers.TryGetValue(_apiKey, out var apiKeys) || apiKeys.FirstOrDefault() == null)
-            {
-                _logger.LogError(_noApiKey);
-                return ErrorHandler.ToResponse(_noApiKey);
-            }
-
             try
             {
-                return Content(await _edifactService.GenerateAckAsync(Request.Body, apiKeys.First(), ackParameters.ToAckParams()), "application/json");
+                TokenFileCache.Set(_apiKey);
+                return Content(await _edifactService.GenerateAckAsync(Request.Body, _apiKey, ackParameters.ToAckParams()), "application/json");
             }
             catch (Exception ex)
             {
@@ -141,16 +123,11 @@ namespace EdiFabric.Api.ASPNET.Controllers
                 _logger.LogError(_noData);
                 return ErrorHandler.ToResponse(_noData);
             }
-
-            if (!Request.Headers.TryGetValue(_apiKey, out var apiKeys) || apiKeys.FirstOrDefault() == null)
-            {
-                _logger.LogError(_noApiKey);
-                return ErrorHandler.ToResponse(_noApiKey);
-            }
-
+            
             try
             {
-                return Content(await _edifactService.AnalyzeAsync(Request.Body, apiKeys.First(), analyzeParameters.ToAnalyzeParams()), "application/json");
+                TokenFileCache.Set(_apiKey);
+                return Content(await _edifactService.AnalyzeAsync(Request.Body, _apiKey, analyzeParameters.ToAnalyzeParams()), "application/json");
             }
             catch (Exception ex)
             {

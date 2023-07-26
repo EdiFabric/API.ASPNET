@@ -1,4 +1,5 @@
 using EdiFabric.Api;
+using EdiFabric.Api.ASPNET;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddEdiFabricApi();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddHostedService<LocalModelsService>();
 
 var app = builder.Build();
 
