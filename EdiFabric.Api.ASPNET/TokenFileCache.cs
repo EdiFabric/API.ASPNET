@@ -4,7 +4,7 @@ namespace EdiFabric.Api.ASPNET
 {
     public class TokenFileCache
     {
-        //  Change path to whatever you prefer
+        //  Change the path to the file that will cache the token
         private static string _tokenFile = Directory.GetCurrentDirectory() + @"\token.txt";
 
         public static void Set(string serialKey)
