@@ -38,7 +38,7 @@ namespace EdiFabric.Api.ASPNET.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
+                _logger.LogError(ex, ex.ToString());
                 return ErrorHandler.ToResponse(ex);
             }
         }
@@ -64,7 +64,7 @@ namespace EdiFabric.Api.ASPNET.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
+                _logger.LogError(ex, ex.ToString());
                 return ErrorHandler.ToResponse(ex);
             }
         }
@@ -86,7 +86,7 @@ namespace EdiFabric.Api.ASPNET.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
+                _logger.LogError(ex, ex.ToString());
                 return ErrorHandler.ToResponse(ex);
             }
         }
@@ -108,7 +108,7 @@ namespace EdiFabric.Api.ASPNET.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
+                _logger.LogError(ex, ex.ToString());
                 return ErrorHandler.ToResponse(ex);
             }
         }
@@ -131,7 +131,7 @@ namespace EdiFabric.Api.ASPNET.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
+                _logger.LogError(ex, ex.ToString());
                 return ErrorHandler.ToResponse(ex);
             }
         }

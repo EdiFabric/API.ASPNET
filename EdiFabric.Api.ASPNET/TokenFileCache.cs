@@ -28,7 +28,7 @@ namespace EdiFabric.Api.ASPNET
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.ToString());
                     //  Contact support@edifabric.com for assistance
                     throw;
                 }
@@ -45,7 +45,7 @@ namespace EdiFabric.Api.ASPNET
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex.ToString());
                 //  If can't get a token a day before the current expires - throw an exception
                 //  Otherwise keep trying
                 if (SerialKey.DaysToExpiration <= 1)
@@ -67,7 +67,7 @@ namespace EdiFabric.Api.ASPNET
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.ToString());
                     index++;
 
                     if (index >= retries)
