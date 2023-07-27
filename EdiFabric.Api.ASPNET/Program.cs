@@ -11,7 +11,8 @@ builder.Services.AddEdiFabricApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHostedService<LocalModelsService>();
+//  Uncomment if you wish to use distributed cache for models
+//  builder.Services.AddHostedService<LocalModelsService>();
 
 var app = builder.Build();
 
