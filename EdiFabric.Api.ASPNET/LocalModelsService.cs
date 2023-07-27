@@ -19,8 +19,8 @@
         {
             //  Load local EDI models
             //  When models are local they won't be pulled from EdiNation API
-            var x12ModelsPath = Directory.GetCurrentDirectory() + @"\EDI";
-            foreach (var fileName in Directory.GetFiles(x12ModelsPath))
+            var modelsPath = Directory.GetCurrentDirectory() + @"\EDI";
+            foreach (var fileName in Directory.GetFiles(modelsPath))
             {
                 var model = File.ReadAllBytes(fileName);
                 var modelName = Path.GetFileName(fileName);
