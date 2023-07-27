@@ -32,8 +32,10 @@ namespace EdiFabric.Api.ASPNET.Controllers
             }
 
             try
-            {               
-                TokenFileCache.Set(_apiKey);
+            {
+                SerialKey.Set(_apiKey);
+                //  Uncomment and then comment the line above if you wish to use distributed cache for tokens
+                //  TokenFileCache.Set(_apiKey);
                 return Content(await _x12Service.ReadAsync(Request.Body, _apiKey, readParameters.ToReadParams()), "application/json");
             }
             catch (Exception ex)
@@ -55,7 +57,9 @@ namespace EdiFabric.Api.ASPNET.Controllers
 
             try
             {
-                TokenFileCache.Set(_apiKey);
+                SerialKey.Set(_apiKey);
+                //  Uncomment and then comment the line above if you wish to use distributed cache for tokens
+                //  TokenFileCache.Set(_apiKey);
                 var result = new MemoryStream();
                 var parameters = writeParameters.ToWriteParams();
                 await _x12Service.WriteAsync(Request.Body, result, _apiKey, parameters);
@@ -81,7 +85,9 @@ namespace EdiFabric.Api.ASPNET.Controllers
 
             try
             {
-                TokenFileCache.Set(_apiKey);
+                SerialKey.Set(_apiKey);
+                //  Uncomment and then comment the line above if you wish to use distributed cache for tokens
+                //  TokenFileCache.Set(_apiKey);
                 return Content(await _x12Service.ValidateAsync(Request.Body, _apiKey, validateParameters.ToValidateParams()), "application/json");
             }
             catch (Exception ex)
@@ -103,7 +109,9 @@ namespace EdiFabric.Api.ASPNET.Controllers
 
             try
             {
-                TokenFileCache.Set(_apiKey);
+                SerialKey.Set(_apiKey);
+                //  Uncomment and then comment the line above if you wish to use distributed cache for tokens
+                //  TokenFileCache.Set(_apiKey);
                 return Content(await _x12Service.GenerateAckAsync(Request.Body, _apiKey, ackParameters.ToAckParams()), "application/json");
             }
             catch (Exception ex)
@@ -126,7 +134,9 @@ namespace EdiFabric.Api.ASPNET.Controllers
 
             try
             {
-                TokenFileCache.Set(_apiKey);
+                SerialKey.Set(_apiKey);
+                //  Uncomment and then comment the line above if you wish to use distributed cache for tokens
+                //  TokenFileCache.Set(_apiKey);
                 return Content(await _x12Service.AnalyzeAsync(Request.Body, _apiKey, analyzeParameters.ToAnalyzeParams()), "application/json");
             }
             catch (Exception ex)

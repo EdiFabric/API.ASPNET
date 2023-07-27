@@ -15,7 +15,7 @@ namespace EdiFabric.Api.ASPNET
 
         public static ObjectResult ToResponse(Exception ex)
         {
-            return ToResponse(ex.ToString(), ex is InvalidDataException ? 400 : 500);
+            return ToResponse(ex.Message, ex is InvalidDataException ? 400 : 500);
         }
     }
 }
