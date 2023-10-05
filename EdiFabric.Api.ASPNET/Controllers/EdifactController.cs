@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EdiFabric.Api.ASPNET.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace EdiFabric.Api.ASPNET.Controllers
 {
@@ -33,10 +34,11 @@ namespace EdiFabric.Api.ASPNET.Controllers
 
             try
             {
-                SerialKey.Set(_apiKey);
+                var apiKey = GetApiKey();
+                SerialKey.Set(apiKey);
                 //  Uncomment and then comment the line above if you wish to use distributed cache for tokens
-                //  TokenFileCache.Set(_apiKey);
-                return Content(await _edifactService.ReadAsync(Request.Body, _apiKey, readParameters.ToReadParams()), "application/json");
+                //  TokenFileCache.Set(apiKey);
+                return Content(await _edifactService.ReadAsync(Request.Body, apiKey, readParameters.ToReadParams()), "application/json");
             }
             catch (Exception ex)
             {
@@ -57,12 +59,13 @@ namespace EdiFabric.Api.ASPNET.Controllers
 
             try
             {
-                SerialKey.Set(_apiKey);
+                var apiKey = GetApiKey();
+                SerialKey.Set(apiKey);
                 //  Uncomment and then comment the line above if you wish to use distributed cache for tokens
-                //  TokenFileCache.Set(_apiKey);
+                //  TokenFileCache.Set(apiKey);
                 var result = new MemoryStream();
                 var parameters = writeParameters.ToWriteParams();
-                await _edifactService.WriteAsync(Request.Body, result, _apiKey, parameters);
+                await _edifactService.WriteAsync(Request.Body, result, apiKey, parameters);
                 result.Position = 0;
                 return File(result, parameters.ContentType);
             }
@@ -85,10 +88,11 @@ namespace EdiFabric.Api.ASPNET.Controllers
            
             try
             {
-                SerialKey.Set(_apiKey);
+                var apiKey = GetApiKey();
+                SerialKey.Set(apiKey);
                 //  Uncomment and then comment the line above if you wish to use distributed cache for tokens
-                //  TokenFileCache.Set(_apiKey);
-                return Content(await _edifactService.ValidateAsync(Request.Body, _apiKey, validateParameters.ToValidateParams()), "application/json");
+                //  TokenFileCache.Set(apiKey);
+                return Content(await _edifactService.ValidateAsync(Request.Body, apiKey, validateParameters.ToValidateParams()), "application/json");
             }
             catch (Exception ex)
             {
@@ -109,10 +113,11 @@ namespace EdiFabric.Api.ASPNET.Controllers
 
             try
             {
-                SerialKey.Set(_apiKey);
+                var apiKey = GetApiKey();
+                SerialKey.Set(apiKey);
                 //  Uncomment and then comment the line above if you wish to use distributed cache for tokens
-                //  TokenFileCache.Set(_apiKey);
-                return Content(await _edifactService.GenerateAckAsync(Request.Body, _apiKey, ackParameters.ToAckParams()), "application/json");
+                //  TokenFileCache.Set(apiKey);
+                return Content(await _edifactService.GenerateAckAsync(Request.Body, apiKey, ackParameters.ToAckParams()), "application/json");
             }
             catch (Exception ex)
             {
@@ -134,10 +139,11 @@ namespace EdiFabric.Api.ASPNET.Controllers
             
             try
             {
-                SerialKey.Set(_apiKey);
+                var apiKey = GetApiKey();
+                SerialKey.Set(apiKey);
                 //  Uncomment and then comment the line above if you wish to use distributed cache for tokens
-                //  TokenFileCache.Set(_apiKey);
-                return Content(await _edifactService.AnalyzeAsync(Request.Body, _apiKey, analyzeParameters.ToAnalyzeParams()), "application/json");
+                //  TokenFileCache.Set(apiKey);
+                return Content(await _edifactService.AnalyzeAsync(Request.Body, apiKey, analyzeParameters.ToAnalyzeParams()), "application/json");
             }
             catch (Exception ex)
             {
@@ -146,5 +152,12 @@ namespace EdiFabric.Api.ASPNET.Controllers
             }
         }
 
+        private string GetApiKey()
+        {
+            if (Request.Headers.TryGetValue("Ocp-Apim-Subscription-Key", out var apiKeys) && apiKeys.FirstOrDefault() == null)
+                return apiKeys.First();
+
+            return _apiKey;
+        }
     }
 }
