@@ -7,16 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EdiFabric.Api" Version="2.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="EdiFabric">
-      <HintPath>..\..\edifabric-api\EdiFabric.dll</HintPath>
-    </Reference>
-    <Reference Include="EdiFabric.Api">
-      <HintPath>..\..\edifabric-api\EdiFabric.Api.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
