@@ -5,7 +5,7 @@ EdiNation InHouse EDI API allows you to run EdiNation's EDI translation and vali
 This tutorial uses the example ASP .NET Core solution that comes with the EdiNation Inhouse product.  
 
 ## 2. Requirements
-- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/), which supports .NET 6.0. 
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/), which supports .NET 8.0 (or .NET 6.0). 
 - [Download Postman](https://www.postman.com/downloads/) - it's an application to consume/test your API.
 - EDI test file(s) - the API supports X12, EDIFACT, EANCOM, HL7, NCPDP, VDA, and EDIGAS. If you don't have a test file, use one of ours - [X12 HIPAA](https://support.edifabric.com/hc/en-us/sections/360001487352-X12-HIPAA-Files-Templates), [X12](https://support.edifabric.com/hc/en-us/sections/360005274077-X12-Files-Templates), [EDIFACT](https://support.edifabric.com/hc/en-us/sections/360005274137-EDIFACT-Files-Templates).
 
@@ -32,6 +32,4 @@ To get started, follow the steps in the [How to use InHouse EDI API as an ASP .N
 [How to use EDI API as Azure Function](https://support.edifabric.com/hc/en-us/articles/7726202434449-How-to-use-Inhouse-EDI-API-as-Azure-Function)
 
 [Support](https://support.edifabric.com/hc/en-us/requests/new)
-
-Last updated on February 28, 2023
-### 2023 © EdiFabric
+### 2025 © EdiFabric
