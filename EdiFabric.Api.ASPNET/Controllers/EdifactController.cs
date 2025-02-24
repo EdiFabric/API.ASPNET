@@ -12,13 +12,15 @@ namespace EdiFabric.Api.ASPNET.Controllers
         private readonly ILogger _logger;
         private readonly string _apiKey;
         private readonly string _noData = "No data in request body.";
-        public EdifactController(IEdifactService edifactService, ILogger<EdifactController> logger, IConfiguration configuration)
+        public EdifactController(IEdifactService edifactService, ILogger<EdifactController> logger, IConfiguration configuration, ILocalModelsService localModelsService)
         {
             _edifactService = edifactService;
             _logger = logger;
             _apiKey = configuration["ApiKey"];
             if (string.IsNullOrEmpty(_apiKey))
                 throw new Exception("No ApiKey configuration in appsettings.json.");
+            //  Uncomment if you wish to use distributed cache for models
+            //  localModelsService.Load(_apiKey, Directory.GetCurrentDirectory() + @"\EDI");
         }
 
         [Route("read")]

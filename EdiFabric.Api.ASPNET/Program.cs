@@ -10,9 +10,7 @@ builder.Services.AddEdiFabricApi();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-//  Uncomment if you wish to use distributed cache for models
-//  builder.Services.AddHostedService<LocalModelsService>();
+builder.Services.AddSingleton<ILocalModelsService, LocalModelsService>();
 
 var app = builder.Build();
 
@@ -28,5 +26,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
 
 app.Run();

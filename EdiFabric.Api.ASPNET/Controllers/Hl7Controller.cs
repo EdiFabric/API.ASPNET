@@ -11,13 +11,15 @@ namespace EdiFabric.Api.ASPNET.Controllers
         private readonly ILogger _logger;
         private readonly string _apiKey;
         private readonly string _noData = "No data in request body.";
-        public Hl7Controller(IHl7Service hl7Service, ILogger<Hl7Controller> logger, IConfiguration configuration)
+        public Hl7Controller(IHl7Service hl7Service, ILogger<Hl7Controller> logger, IConfiguration configuration, ILocalModelsService localModelsService)
         {
             _hl7Service = hl7Service;
             _logger = logger;
             _apiKey = configuration["ApiKey"];
             if (string.IsNullOrEmpty(_apiKey))
                 throw new Exception("No ApiKey configuration in appsettings.json.");
+            //  Uncomment if you wish to use distributed cache for models
+            //  localModelsService.Load(_apiKey, Directory.GetCurrentDirectory() + @"\EDI");
         }
 
         [Route("read")]

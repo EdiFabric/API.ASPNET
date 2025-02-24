@@ -2,33 +2,26 @@
 
 namespace EdiFabric.Api.ASPNET
 {
-    public class LocalModelsService : IHostedService
+    public interface ILocalModelsService
     {
-        private readonly IConfiguration _configuration;
-        private readonly string _apiKey;
-
-        public LocalModelsService(IConfiguration configuration)
+        void Load(string apiKey, string path);
+    }
+    public class LocalModelsService : ILocalModelsService
+    {
+        public void Load(string apiKey, string path)
         {
-            _configuration = configuration;
-            _apiKey = _configuration["ApiKey"];
-            if (string.IsNullOrEmpty(_apiKey))
-                throw new Exception("No ApiKey configuration in appsettings.json.");
+            var loadContext = GetLoadContext(apiKey);
+
+            foreach (var fileName in Directory.GetFiles(path))
+            {
+                if(loadContext.Assemblies.FirstOrDefault(a => a.Location == fileName) == null)
+                    loadContext.LoadFromAssemblyPath(fileName);
+            }
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        private AssemblyLoadContext GetLoadContext(string apiKey)
         {
-            //  Load local EDI models
-            //  When models are local they won't be pulled from EdiNation API
-            var loadContext = new CustomAssemblyLoadContext(_apiKey);
-            var modelsPath = Directory.GetCurrentDirectory() + @"\EDI";
-            foreach (var fileName in Directory.GetFiles(modelsPath))
-                loadContext.LoadFromAssemblyPath(fileName);
-
-            return Task.CompletedTask;
-        }
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            return Task.CompletedTask;
+            return AssemblyLoadContext.All.FirstOrDefault(alc => alc.Name == apiKey) ?? new CustomAssemblyLoadContext(apiKey);
         }
     }
 

@@ -11,13 +11,15 @@ namespace EdiFabric.Api.ASPNET.Controllers
         private readonly ILogger _logger;
         private readonly string _apiKey;
         private readonly string _noData = "No data in request body.";
-        public NcpdpController(INcpdpService ncpdpService, ILogger<NcpdpController> logger, IConfiguration configuration)
+        public NcpdpController(INcpdpService ncpdpService, ILogger<NcpdpController> logger, IConfiguration configuration, ILocalModelsService localModelsService)
         {
             _ncpdpService = ncpdpService;
             _logger = logger;
             _apiKey = configuration["ApiKey"];
             if (string.IsNullOrEmpty(_apiKey))
                 throw new Exception("No ApiKey configuration in appsettings.json.");
+            //  Uncomment if you wish to use distributed cache for models
+            //  localModelsService.Load(_apiKey, Directory.GetCurrentDirectory() + @"\EDI");
         }
 
         [Route("read")]
