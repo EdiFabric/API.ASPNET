@@ -27,7 +27,7 @@ namespace EdiFabric.Api.ASPNET
 
     class CustomAssemblyLoadContext : AssemblyLoadContext
     {
-        public CustomAssemblyLoadContext(string subscriptionId) : base(subscriptionId, isCollectible: true)
+        public CustomAssemblyLoadContext(string subscriptionId) : base(subscriptionId)
         {
         }
     }
