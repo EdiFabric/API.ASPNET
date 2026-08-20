@@ -1,14 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EdiFabric.Api" Version="2.2.12" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+  </ItemGroup>
+
+  <!-- Copy the native library next to the executable when it sits in the project or repository root. -->
+  <ItemGroup>
+    <None Include="edifabric-x12-tools.dll" Condition="Exists('edifabric-x12-tools.dll')" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="edifabric-x12-tools.so" Condition="Exists('edifabric-x12-tools.so')" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="edifabric-x12-tools.dylib" Condition="Exists('edifabric-x12-tools.dylib')" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\edifabric-x12-tools.dll" Condition="Exists('..\edifabric-x12-tools.dll')" Link="edifabric-x12-tools.dll" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\edifabric-x12-tools.so" Condition="Exists('..\edifabric-x12-tools.so')" Link="edifabric-x12-tools.so" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\edifabric-x12-tools.dylib" Condition="Exists('..\edifabric-x12-tools.dylib')" Link="edifabric-x12-tools.dylib" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

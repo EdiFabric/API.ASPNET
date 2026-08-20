@@ -1,37 +1,39 @@
-﻿namespace EdiFabric.Api.ASPNET.Models
+﻿using System.Text.Json.Nodes;
+
+namespace EdiFabric.Api.ASPNET.Models
 {
     public class ValidateParameters
     {
-        public string? SyntaxSet { get; set; }
+        public string? Regex { get; set; }
+        public string? DateFormat { get; set; }
+        public string? TimeFormat { get; set; }
+        public bool SkipSeqCount { get; set; }
+        public bool SkipHlSeq { get; set; }
+        public int SnipLevel { get; set; }
+        public int MaxErrors { get; set; }
 
-        public string? DecimalPoint { get; set; }
-
-        public bool SkipTrailer { get; set; }
-
-        public bool EancomS3 { get; set; }
-
-        public bool StructureOnly { get; set; }
-
-        public bool BasicSyntax { get; set; }
-
-        public ValidateParams ToValidateParams()
+        public string ToConfig()
         {
-            var result = new ValidateParams();
-
-            result.SkipTrailerValidation = SkipTrailer;
-            if (!string.IsNullOrEmpty(DecimalPoint))
+            var config = new JsonObject
             {
-                result.DecimalPoint = DecimalPoint == "." ? '.' : ',';
-            }
-            if (!string.IsNullOrEmpty(SyntaxSet))
-            {
-                result.SyntaxSet = SyntaxSet;
-            }
-            result.EancomS3IsDefault = EancomS3;
-            result.StructureOnly = StructureOnly;
-            result.BasicSyntax = BasicSyntax;
+                ["validate"] = ToValidateObject(),
+            };
 
-            return result;
+            return config.ToJsonString();
+        }
+
+        internal JsonObject ToValidateObject()
+        {
+            return new JsonObject
+            {
+                ["regex"] = string.IsNullOrEmpty(Regex) ? null : Regex,
+                ["date_format"] = string.IsNullOrEmpty(DateFormat) ? null : DateFormat,
+                ["time_format"] = string.IsNullOrEmpty(TimeFormat) ? null : TimeFormat,
+                ["skip_seq_count"] = SkipSeqCount,
+                ["skip_hl_seq"] = SkipHlSeq,
+                ["snip_level"] = SnipLevel,
+                ["max_errors"] = MaxErrors,
+            };
         }
     }
 }

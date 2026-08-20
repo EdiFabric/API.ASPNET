@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using EdiFabric.Native.X12;
 
 namespace EdiFabric.Api.ASPNET
 {
@@ -12,7 +13,7 @@ namespace EdiFabric.Api.ASPNET
             try
             {
                 var token = ReadFromCache(serialKey);
-                SerialKey.SetToken(token);
+                EdiFabricX12.SetToken(token);
 
                 //  Refresh token before expiration
                 Refresh(serialKey);
@@ -24,7 +25,7 @@ namespace EdiFabric.Api.ASPNET
                 {
                     var token = GetFromApi(serialKey);
                     WriteToCache(token);
-                    SerialKey.SetToken(token);
+                    EdiFabricX12.SetToken(token);
                 }
                 catch (Exception ex)
                 {
@@ -40,7 +41,7 @@ namespace EdiFabric.Api.ASPNET
             try
             {
                 //  Refresh the token two days before it expires
-                if (SerialKey.DaysToExpiration < 3)
+                if (DaysToExpiration() < 3)
                     WriteToCache(GetFromApi(serialKey));
             }
             catch (Exception ex)
@@ -48,9 +49,18 @@ namespace EdiFabric.Api.ASPNET
                 Debug.WriteLine(ex.ToString());
                 //  If can't get a token a day before the current expires - throw an exception
                 //  Otherwise keep trying
-                if (SerialKey.DaysToExpiration <= 1)
+                if (DaysToExpiration() <= 1)
                     throw;
             }
+        }
+
+        private static int DaysToExpiration()
+        {
+            var expiration = EdiFabricX12.GetTokenExpiration();
+            if (expiration is null)
+                return 0;
+
+            return Math.Max(0, (int)Math.Ceiling((expiration.Value - DateTime.UtcNow).TotalDays));
         }
 
         private static string GetFromApi(string serialKey)
@@ -63,7 +73,7 @@ namespace EdiFabric.Api.ASPNET
             {
                 try
                 {
-                    return SerialKey.GetToken(serialKey);
+                    return EdiFabricX12.GetToken(serialKey);
                 }
                 catch (Exception ex)
                 {

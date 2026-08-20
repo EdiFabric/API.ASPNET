@@ -1,45 +1,29 @@
-﻿namespace EdiFabric.Api.ASPNET.Models
+﻿using System.Text.Json.Nodes;
+
+namespace EdiFabric.Api.ASPNET.Models
 {
-    public class AckParameters
+    public class AckParameters : ValidateParameters
     {
-        public string? SyntaxSet { get; set; }
-        public bool EancomS3 { get; set; }
-        public bool DetectDuplicates { get; set; }
-        public string? TechnicalAck { get; set; }
-        public bool AckForValidTrans { get; set; }
-        public int TranRefNumber { get; set; }
-        public int InterchangeRefNumber { get; set; }
-        public bool BatchAcks { get; set; }
-        public bool BasicSyntax { get; set; }
-        public bool Ak901isP { get; set; }
-        public string? Ack { get; set; }
+        public bool SuppressTa1 { get; set; }
+        public bool Ak901p { get; set; }
+        public bool GenForValid { get; set; }
+        public bool Gen997 { get; set; }
 
-        public AckParams ToAckParams()
+        public new string ToConfig()
         {
-            var result = new AckParams();
+            var config = new JsonObject
+            {
+                ["validate"] = ToValidateObject(),
+                ["ack"] = new JsonObject
+                {
+                    ["supress_ta1"] = SuppressTa1,
+                    ["ak901p"] = Ak901p,
+                    ["gen_for_valid"] = GenForValid,
+                    ["gen997"] = Gen997,
+                },
+            };
 
-            if (!string.IsNullOrEmpty(SyntaxSet))
-            {
-                result.SyntaxSet = SyntaxSet;
-            }
-            result.DetectDuplicates = DetectDuplicates;
-            if (!string.IsNullOrEmpty(TechnicalAck))
-            {
-                result.TechnicalAck = TechnicalAck;
-            }
-            result.GenerateForValidMessages = AckForValidTrans;
-            result.MessageControlNumber = TranRefNumber;
-            if (!string.IsNullOrEmpty(Ack))
-            {
-                result.AckVersion = Ack;
-            }
-            result.EancomS3IsDefault = EancomS3;
-            result.BatchAcks = BatchAcks;
-            result.InterchangeControlNumber = InterchangeRefNumber;
-            result.Ak901ShouldBeP = Ak901isP;
-            result.BasicSyntax = BasicSyntax;
-
-            return result;
+            return config.ToJsonString();
         }
     }
 }

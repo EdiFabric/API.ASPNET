@@ -16,8 +16,7 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7050;http://localhost:5257",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "EDINATION_AUTHAPI_URL": "https://api.edination.com/v2"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "IIS Express": {

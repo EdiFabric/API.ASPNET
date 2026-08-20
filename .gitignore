@@ -12,3 +12,11 @@
 /EdiFabric.Api.ASPNET/token.txt
 /.vs
 /EdiFabric.Api.ASPNET/bin/Debug/net8.0
+/EdiFabric.Api.ASPNET/bin/Debug/net10.0
+/EdiFabric.Api.ASPNET/edifabric.log
+/EdiFabric.Api.ASPNET/edifabric-x12-tools.dll
+/EdiFabric.Api.ASPNET/edifabric-x12-tools.so
+/EdiFabric.Api.ASPNET/edifabric-x12-tools.dylib
+/edifabric-x12-tools.dll
+/edifabric-x12-tools.so
+/edifabric-x12-tools.dylib
