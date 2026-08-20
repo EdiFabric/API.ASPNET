@@ -41,12 +41,12 @@ By default the API uses the online spec service (`SetMap` with `"default": "<ser
 ## 5. Getting started
 Run the project and open Swagger at `/swagger`. POST X12 EDI to:
 
-| Endpoint | Native call |
-| --- | --- |
-| `POST /x12/read` | `EdiFabricX12.Parse` (JSON only) | Input is X12 file | Output is JSON |
-| `POST /x12/write` | `EdiFabricX12.Build` | Input is JSON (the output from /read) | Output is X12 |
-| `POST /x12/validate` | `EdiFabricX12.Parse` (JSON + validation report) | Input is JSON (the output from /read) or X12 | Output is JSON |
-| `POST /x12/ack` | `EdiFabricX12.Parse` (JSON + validation + 999/997/TA1) | Input is JSON (the output from /read) or X12 | Output is JSON |
+| Endpoint | Native call | Input | Output
+| --- | --- | --- | --- |
+| `POST /x12/read` | `EdiFabricX12.Parse` (JSON only) | X12 | JSON |
+| `POST /x12/write` | `EdiFabricX12.Build` | JSON (the output from /read) | X12 |
+| `POST /x12/validate` | `EdiFabricX12.Parse` (JSON + validation report) | JSON (the output from /read) or X12 | JSON |
+| `POST /x12/ack` | `EdiFabricX12.Parse` (JSON + validation + 999/997/TA1) | JSON (the output from /read) or X12 | JSON |
 
 ## 6. Warranty
 *The source code in these example projects is strictly for demonstrational purposes and is provided "AS IS" without warranty of any kind, whether expressed or implied, including but not limited to the implied warranties of merchantability and/or fitness for a particular purpose.*
